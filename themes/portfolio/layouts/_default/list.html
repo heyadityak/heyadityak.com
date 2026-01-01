@@ -1,0 +1,52 @@
+{{ define "main" }}
+<section class="py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="section-heading">{{ .Title }}</h1>
+      {{ with .Description }}
+      <p class="section-subheading mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{ range .Pages }}
+      <article class="card overflow-hidden group">
+        {{ with .Params.image }}
+        <div class="aspect-video overflow-hidden">
+          <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+        </div>
+        {{ else }}
+        <div class="aspect-video bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+          <svg class="w-16 h-16 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </div>
+        {{ end }}
+        <div class="p-6">
+          <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            {{ if .ReadingTime }}
+            <span class="mx-2">•</span>
+            <span>{{ .ReadingTime }} min read</span>
+            {{ end }}
+          </div>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{{ .Description }}</p>
+          {{ with .Params.tags }}
+          <div class="flex flex-wrap gap-2">
+            {{ range . }}
+            <span class="tag">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    
+    {{ template "_internal/pagination.html" . }}
+  </div>
+</section>
+{{ end }}

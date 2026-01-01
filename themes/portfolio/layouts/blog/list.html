@@ -1,0 +1,59 @@
+{{ define "main" }}
+<section class="py-16 md:py-24">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="section-heading">Blog</h1>
+      <p class="section-subheading mx-auto">
+        Thoughts, tutorials, and insights on development, technology, and more.
+      </p>
+    </div>
+    
+    <!-- AdSense - Top of blog list -->
+    {{ if .Site.Params.googleAdsense }}
+    <div class="mb-8">
+      {{ partial "adsense-ad.html" (dict "context" . "slot" (.Site.Params.adsenseSlotBlogList | default "")) }}
+    </div>
+    {{ end }}
+    
+    <div class="space-y-8">
+      {{ range .Pages }}
+      <article class="card p-6 md:p-8 group">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          {{ with .Params.image }}
+          <div class="md:w-48 md:flex-shrink-0">
+            <div class="aspect-video md:aspect-square rounded-lg overflow-hidden">
+              <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+          </div>
+          {{ end }}
+          
+          <div class="flex-grow">
+            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+              <span class="mx-2">•</span>
+              <span>{{ .ReadingTime }} min read</span>
+            </div>
+            
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </h2>
+            
+            <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{{ .Description }}</p>
+            
+            {{ with .Params.tags }}
+            <div class="flex flex-wrap gap-2">
+              {{ range . }}
+              <span class="tag">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    
+    {{ template "_internal/pagination.html" . }}
+  </div>
+</section>
+{{ end }}

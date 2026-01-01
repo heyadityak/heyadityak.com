@@ -1,0 +1,29 @@
+{{/* 
+  Usage: {{ partial "adsense-ad.html" (dict "context" . "slot" "1234567890" "format" "auto" "responsive" true) }}
+  
+  Parameters:
+  - slot: Your ad slot ID (required)
+  - format: Ad format - "auto", "fluid", "rectangle", "horizontal", "vertical" (default: "auto")
+  - responsive: Whether the ad is responsive (default: true)
+  - style: Custom inline styles (optional)
+*/}}
+
+{{- if and (not hugo.IsServer) .context.Site.Params.googleAdsense -}}
+{{- $slot := .slot | default "" -}}
+{{- $format := .format | default "auto" -}}
+{{- $responsive := .responsive | default true -}}
+{{- $style := .style | default "display:block" -}}
+
+{{- if $slot -}}
+<ins class="adsbygoogle"
+     style="{{ $style | safeCSS }}"
+     data-ad-client="{{ .context.Site.Params.googleAdsense }}"
+     data-ad-slot="{{ $slot }}"
+     {{ if eq $format "auto" }}data-ad-format="auto"{{ end }}
+     {{ if eq $format "fluid" }}data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86"{{ end }}
+     {{ if $responsive }}data-full-width-responsive="true"{{ end }}></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{{ end }}
+{{ end }}

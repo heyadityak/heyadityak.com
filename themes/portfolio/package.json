@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-theme",
+  "version": "1.0.0",
+  "description": "Hugo portfolio theme with Tailwind CSS",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --watch",
+    "build": "npx tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "@tailwindcss/typography": "^0.5.10"
+  }
+}

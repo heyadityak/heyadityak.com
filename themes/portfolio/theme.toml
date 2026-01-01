@@ -1,0 +1,12 @@
+name = "Portfolio"
+license = "MIT"
+licenselink = "https://github.com/beingadityak/heyadityak.com/blob/main/LICENSE"
+description = "A modern portfolio theme with Tailwind CSS and dark mode support"
+homepage = "https://heyadityak.com"
+tags = ["portfolio", "tailwind", "dark-mode", "responsive"]
+features = ["dark-mode", "tailwind-css", "responsive"]
+min_version = "0.112.0"
+
+[author]
+  name = "Aditya K"
+  homepage = "https://heyadityak.com"

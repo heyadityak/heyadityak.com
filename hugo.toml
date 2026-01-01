@@ -1,0 +1,63 @@
+baseURL = 'https://heyadityak.com/'
+languageCode = 'en-us'
+title = 'Aditya Krishnakumar'
+theme = 'portfolio'
+
+[params]
+  author = "Aditya Krishnakumar"
+  description = "Full-stack developer passionate about building great products"
+  github = "https://github.com/heyadityak"
+  linkedin = "https://linkedin.com/in/heyadityak"
+  twitter = "https://x.com/heyadityak"
+  email = "hello@heyadityak.com"
+  
+  # Formspree - Contact form (https://formspree.io)
+  formspreeId = "mdakkzyv"  # Your Formspree form ID
+  
+  # Google Analytics (GA4) - Add your measurement ID (e.g., "G-XXXXXXXXXX")
+  # googleAnalytics = "G-XXXXXXXXXX"
+  
+  # Google AdSense - Add your publisher ID (e.g., "ca-pub-XXXXXXXXXXXXXXXX")
+  # googleAdsense = "ca-pub-XXXXXXXXXXXXXXXX"
+  
+  # AdSense Ad Slot IDs (only shown in blog section)
+  # adsenseSlotBlogList = "1234567890"        # Ad on blog list page
+  # adsenseSlotBlogPost = "1234567891"        # Ad before blog post content
+  # adsenseSlotBlogPostBottom = "1234567892"  # Ad after blog post content
+  
+  # Utterances Comments (https://utteranc.es)
+  [params.utterances]
+    repo = "heyadityak/heyadityak.com"           # GitHub repo for comments (required)
+    issueTerm = "pathname"           # How to map posts to issues: pathname, url, title, og:title
+    label = "comments"               # Label for created issues (optional)
+    theme = "github-light"           # Light mode theme
+    themeDark = "github-dark"        # Dark mode theme
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 3
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 4
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 5
+
+[markup]
+  [markup.highlight]
+    style = "dracula"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
