@@ -1,0 +1,249 @@
+{{ define "main" }}
+<section class="py-16 md:py-24">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h1 class="section-heading">Search</h1>
+      <p class="section-subheading mx-auto">
+        Find blog posts by title, content, or tags
+      </p>
+    </div>
+    
+    <!-- Search Input -->
+    <div class="max-w-2xl mx-auto mb-12">
+      <div class="relative">
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Type to search..." 
+          disabled
+          class="w-full pl-4 pr-12 py-4 rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          autocomplete="off"
+        >
+        <div id="search-loading" class="absolute right-4 top-1/2 -translate-y-1/2">
+          <svg class="animate-spin w-5 h-5 text-primary-500" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+        <svg id="search-icon" class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+      <p id="search-status" class="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">Loading search index...</p>
+    </div>
+    
+    <!-- Search Results -->
+    <div id="search-results" class="space-y-6">
+      <!-- Results will be populated by JavaScript -->
+    </div>
+    
+    <!-- All Posts (hidden, used as templates) -->
+    <div id="all-posts" class="hidden">
+      {{ range (where .Site.RegularPages "Section" "blog") }}
+      <article class="search-result card p-6 hover:border-primary-500 dark:hover:border-primary-400 transition-colors" data-id="{{ .File.UniqueID }}">
+        <a href="{{ .RelPermalink }}" class="block">
+          <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+            <span class="mx-2">•</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400">
+            {{ .Title }}
+          </h2>
+          {{ with .Description }}
+          <p class="text-gray-600 dark:text-gray-400 line-clamp-2">{{ . }}</p>
+          {{ end }}
+          {{ with .Params.tags }}
+          <div class="flex flex-wrap gap-2 mt-3">
+            {{ range first 3 . }}
+            <span class="tag">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Lunr.js -->
+<script src="https://unpkg.com/lunr/lunr.js"></script>
+<script>
+(function() {
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  const searchStatus = document.getElementById('search-status');
+  const searchLoading = document.getElementById('search-loading');
+  const allPosts = document.getElementById('all-posts');
+  
+  let searchIndex = null;
+  let pagesData = null;
+
+  // Load search data and build index
+  async function initSearch() {
+    try {
+      const response = await fetch('/search/index.json');
+      pagesData = await response.json();
+      
+      // Build lunr index
+      searchIndex = lunr(function() {
+        this.ref('id');
+        this.field('title', { boost: 10 });
+        this.field('description', { boost: 5 });
+        this.field('tags', { boost: 5 });
+        this.field('content');
+        
+        pagesData.forEach(page => {
+          this.add({
+            id: page.id,
+            title: page.title,
+            description: page.description || '',
+            tags: (page.tags || []).join(' '),
+            content: page.content
+          });
+        });
+      });
+      
+      // Enable search input
+      searchInput.disabled = false;
+      searchInput.focus();
+      searchLoading.classList.add('hidden');
+      document.getElementById('search-icon').classList.remove('hidden');
+      searchStatus.textContent = `${pagesData.length} posts indexed. Start typing to search.`;
+      
+    } catch (error) {
+      console.error('Failed to load search index:', error);
+      searchStatus.textContent = 'Failed to load search index. Please refresh the page.';
+      searchLoading.classList.add('hidden');
+    }
+  }
+
+  // Perform search
+  function performSearch(query) {
+    if (!searchIndex || !query.trim()) {
+      searchResults.innerHTML = '';
+      if (!query.trim()) {
+        searchStatus.textContent = `${pagesData.length} posts indexed. Start typing to search.`;
+      }
+      return;
+    }
+
+    // Require at least 2 characters
+    if (query.length < 2) {
+      searchResults.innerHTML = '';
+      searchStatus.textContent = 'Type at least 2 characters to search...';
+      return;
+    }
+
+    try {
+      // Try multiple search strategies for better results
+      let results = [];
+      const queryLower = query.toLowerCase().trim();
+      
+      // Strategy 1: Plain search (lunr handles stemming)
+      try {
+        results = searchIndex.search(queryLower);
+      } catch (e) { results = []; }
+      
+      // Strategy 2: Wildcard search for partial matches
+      if (results.length === 0) {
+        try {
+          results = searchIndex.search(queryLower + '*');
+        } catch (e) { results = []; }
+      }
+      
+      // Strategy 3: Fuzzy match with edit distance
+      if (results.length === 0) {
+        try {
+          results = searchIndex.search(queryLower + '~1');
+        } catch (e) { results = []; }
+      }
+      
+      // Strategy 4: Search each word with wildcards
+      if (results.length === 0) {
+        try {
+          const words = queryLower.split(/\s+/).filter(w => w.length > 1);
+          if (words.length > 0) {
+            results = searchIndex.search(words.map(w => w + '*').join(' '));
+          }
+        } catch (e) { results = []; }
+      }
+      
+      // Strategy 5: Manual filter as fallback
+      if (results.length === 0) {
+        const manualResults = pagesData.filter(page => {
+          const searchText = `${page.title} ${page.description || ''} ${(page.tags || []).join(' ')} ${page.content}`.toLowerCase();
+          return searchText.includes(queryLower);
+        });
+        results = manualResults.map(page => ({ ref: page.id, score: 1 }));
+      }
+      
+      if (results.length === 0) {
+        searchResults.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400 py-8">No results found for "' + escapeHtml(query) + '"</p>';
+        searchStatus.textContent = 'No results found.';
+        return;
+      }
+
+      searchStatus.textContent = `Found ${results.length} result${results.length === 1 ? '' : 's'}`;
+      
+      // Get matching post elements and sort by score
+      const resultHtml = results.map(result => {
+        const postEl = allPosts.querySelector(`[data-id="${result.ref}"]`);
+        if (postEl) {
+          return postEl.outerHTML;
+        }
+        return '';
+      }).join('');
+      
+      searchResults.innerHTML = resultHtml;
+      
+      // Make results visible
+      searchResults.querySelectorAll('.search-result').forEach(el => {
+        el.classList.remove('hidden');
+      });
+      
+    } catch (error) {
+      // Handle lunr parse errors gracefully
+      console.error('Search error:', error);
+      searchResults.innerHTML = '';
+      searchStatus.textContent = 'Search error. Try a different query.';
+    }
+  }
+
+  // Escape HTML to prevent XSS
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Debounce function
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+
+  // Event listeners
+  const debouncedSearch = debounce(performSearch, 150);
+  searchInput.addEventListener('input', (e) => {
+    debouncedSearch(e.target.value);
+  });
+
+  // Handle URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const queryParam = urlParams.get('q');
+  
+  // Initialize search
+  initSearch().then(() => {
+    if (queryParam) {
+      searchInput.value = queryParam;
+      performSearch(queryParam);
+    }
+  });
+})();
+</script>
+{{ end }}
