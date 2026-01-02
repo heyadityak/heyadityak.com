@@ -1,15 +1,15 @@
 baseURL = 'https://heyadityak.com/'
 languageCode = 'en-us'
-title = 'John Doe'
+title = 'Aditya Krishnakumar'
 theme = 'portfolio'
 
 [params]
-  author = "John Doe"
+  author = "Aditya Krishnakumar"
   description = "Full-stack developer passionate about building great products"
-  github = "https://github.com/johndoe"
-  linkedin = "https://linkedin.com/in/johndoe"
-  twitter = "https://x.com/johndoe"
-  email = "hello@johndoe.com"
+  github = "https://github.com/heyadityak"
+  linkedin = "https://linkedin.com/in/heyadityak"
+  twitter = "https://x.com/heyadityak"
+  email = "hello@heyadityak.com"
   
   # Formspree - Contact form (https://formspree.io)
   formspreeId = "mdakkzyv"  # Your Formspree form ID
@@ -29,7 +29,7 @@ theme = 'portfolio'
   # Available presets: "blue" (default), "purple", "green", "orange", "rose", "teal"
   # Or use custom hex colors (without #)
   [params.colors]
-    preset = "purple"                    # Use a preset color scheme
+    preset = "blue"                    # Use a preset color scheme
     # primary = "0ea5e9"               # Custom primary color (hex without #)
     # primaryDark = "0284c7"           # Custom primary dark color for gradients
   
