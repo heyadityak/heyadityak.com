@@ -69,7 +69,7 @@
     <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-dark-border">
       <div class="flex justify-between">
         {{ with .PrevInSection }}
-        <a href="{{ .Permalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="{{ .RelPermalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
           <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
           </svg>
@@ -80,7 +80,7 @@
         {{ end }}
         
         {{ with .NextInSection }}
-        <a href="{{ .Permalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+        <a href="{{ .RelPermalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
           <span class="line-clamp-1">{{ .Title }}</span>
           <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

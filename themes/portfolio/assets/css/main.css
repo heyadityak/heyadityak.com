@@ -46,7 +46,10 @@
   }
   
   .tag {
-    @apply inline-block px-3 py-1 text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full;
+    @apply inline-block px-3 py-1 text-sm font-medium bg-primary-100 text-primary-700 dark:text-primary-300 rounded-full;
+    .dark & {
+      background-color: color-mix(in srgb, var(--color-primary-900) 30%, transparent);
+    }
   }
 }
 

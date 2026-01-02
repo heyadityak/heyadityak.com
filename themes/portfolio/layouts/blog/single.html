@@ -57,7 +57,7 @@
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center space-x-4">
           <span class="text-sm text-gray-500 dark:text-gray-400">Share:</span>
-          <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Share on Twitter">
+          <a href="https://x.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Share on Twitter">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
@@ -78,7 +78,7 @@
     <nav class="mt-8 pt-8 border-t border-gray-200 dark:border-dark-border">
       <div class="flex justify-between">
         {{ with .PrevInSection }}
-        <a href="{{ .Permalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 max-w-[45%]">
+        <a href="{{ .RelPermalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 max-w-[45%]">
           <svg class="w-5 h-5 mr-2 flex-shrink-0 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
           </svg>
@@ -89,7 +89,7 @@
         {{ end }}
         
         {{ with .NextInSection }}
-        <a href="{{ .Permalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 max-w-[45%] text-right">
+        <a href="{{ .RelPermalink }}" class="group flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 max-w-[45%] text-right">
           <span class="line-clamp-1">{{ .Title }}</span>
           <svg class="w-5 h-5 ml-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

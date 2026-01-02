@@ -1,3 +1,4 @@
+{{- partial "theme-colors.html" . -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
@@ -7,7 +8,7 @@
 <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ .RelPermalink }}">
 {{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
 
 <!-- Twitter Card -->
@@ -17,8 +18,31 @@
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}">
+<!-- Favicon - Dynamic SVG based on author initials and theme colors -->
+{{- $author := .Site.Params.author | default "A" -}}
+{{- $words := split $author " " -}}
+{{- $initials := "" -}}
+{{- range $words -}}
+  {{- $initials = printf "%s%s" $initials (substr . 0 1) -}}
+{{- end -}}
+{{- $initials = $initials | upper -}}
+{{- if gt (len $initials) 2 -}}
+  {{- $initials = substr $initials 0 2 -}}
+{{- end -}}
+{{- /* Color presets for favicon */ -}}
+{{- $colorPresets := dict 
+  "blue" (dict "primary" "0ea5e9" "dark" "0284c7")
+  "purple" (dict "primary" "a855f7" "dark" "9333ea")
+  "green" (dict "primary" "22c55e" "dark" "16a34a")
+  "orange" (dict "primary" "f97316" "dark" "ea580c")
+  "rose" (dict "primary" "f43f5e" "dark" "e11d48")
+  "teal" (dict "primary" "14b8a6" "dark" "0d9488")
+-}}
+{{- $preset := .Site.Params.colors.preset | default "blue" -}}
+{{- $presetColors := index $colorPresets $preset | default (index $colorPresets "blue") -}}
+{{- $primaryColor := .Site.Params.colors.primary | default (index $presetColors "primary") -}}
+{{- $primaryDark := .Site.Params.colors.primaryDark | default (index $presetColors "dark") -}}
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23{{ $primaryColor }}'/><stop offset='100%25' stop-color='%23{{ $primaryDark }}'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text x='50' y='50' font-family='system-ui,sans-serif' font-size='{{ cond (eq (len $initials) 1) "50" "40" }}' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>{{ $initials }}</text></svg>">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

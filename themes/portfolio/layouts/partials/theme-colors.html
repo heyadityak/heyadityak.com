@@ -1,0 +1,33 @@
+{{- /* Color presets */ -}}
+{{- $presets := dict 
+  "blue" (dict "50" "f0f9ff" "100" "e0f2fe" "200" "bae6fd" "300" "7dd3fc" "400" "38bdf8" "500" "0ea5e9" "600" "0284c7" "700" "0369a1" "800" "075985" "900" "0c4a6e" "950" "082f49")
+  "purple" (dict "50" "faf5ff" "100" "f3e8ff" "200" "e9d5ff" "300" "d8b4fe" "400" "c084fc" "500" "a855f7" "600" "9333ea" "700" "7e22ce" "800" "6b21a8" "900" "581c87" "950" "3b0764")
+  "green" (dict "50" "f0fdf4" "100" "dcfce7" "200" "bbf7d0" "300" "86efac" "400" "4ade80" "500" "22c55e" "600" "16a34a" "700" "15803d" "800" "166534" "900" "14532d" "950" "052e16")
+  "orange" (dict "50" "fff7ed" "100" "ffedd5" "200" "fed7aa" "300" "fdba74" "400" "fb923c" "500" "f97316" "600" "ea580c" "700" "c2410c" "800" "9a3412" "900" "7c2d12" "950" "431407")
+  "rose" (dict "50" "fff1f2" "100" "ffe4e6" "200" "fecdd3" "300" "fda4af" "400" "fb7185" "500" "f43f5e" "600" "e11d48" "700" "be123c" "800" "9f1239" "900" "881337" "950" "4c0519")
+  "teal" (dict "50" "f0fdfa" "100" "ccfbf1" "200" "99f6e4" "300" "5eead4" "400" "2dd4bf" "500" "14b8a6" "600" "0d9488" "700" "0f766e" "800" "115e59" "900" "134e4a" "950" "042f2e")
+-}}
+
+{{- /* Get color configuration */ -}}
+{{- $preset := .Site.Params.colors.preset | default "blue" -}}
+{{- $colors := index $presets $preset | default (index $presets "blue") -}}
+
+{{- /* Allow custom color overrides */ -}}
+{{- $primary500 := .Site.Params.colors.primary | default (index $colors "500") -}}
+{{- $primary600 := .Site.Params.colors.primaryDark | default (index $colors "600") -}}
+
+<style>
+  :root {
+    --color-primary-50: #{{ index $colors "50" }};
+    --color-primary-100: #{{ index $colors "100" }};
+    --color-primary-200: #{{ index $colors "200" }};
+    --color-primary-300: #{{ index $colors "300" }};
+    --color-primary-400: #{{ index $colors "400" }};
+    --color-primary-500: #{{ $primary500 }};
+    --color-primary-600: #{{ $primary600 }};
+    --color-primary-700: #{{ index $colors "700" }};
+    --color-primary-800: #{{ index $colors "800" }};
+    --color-primary-900: #{{ index $colors "900" }};
+    --color-primary-950: #{{ index $colors "950" }};
+  }
+</style>
