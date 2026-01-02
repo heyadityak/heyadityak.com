@@ -85,6 +85,10 @@ theme = 'portfolio'
     url = "/contact/"
     weight = 5
 
+# Pagination
+[pagination]
+  pagerSize = 5
+
 [markup]
   [markup.highlight]
     style = "dracula"

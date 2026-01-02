@@ -16,7 +16,7 @@
     {{ end }}
     
     <div class="space-y-8">
-      {{ range .Pages }}
+      {{ range .Paginator.Pages }}
       <article class="card p-6 md:p-8 group">
         <div class="flex flex-col md:flex-row md:items-start gap-6">
           {{ with .Params.image }}
@@ -53,7 +53,64 @@
       {{ end }}
     </div>
     
-    {{ template "_internal/pagination.html" . }}
+    {{ if gt .Paginator.TotalPages 1 }}
+    <nav class="mt-12 flex items-center justify-center" aria-label="Pagination">
+      <ul class="flex items-center gap-2">
+        {{- if .Paginator.HasPrev -}}
+        <li>
+          <a href="{{ .Paginator.Prev.URL }}" class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300" aria-label="Previous page">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </a>
+        </li>
+        {{- else -}}
+        <li>
+          <span class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-600 cursor-not-allowed" aria-disabled="true">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </span>
+        </li>
+        {{- end -}}
+
+        {{- range .Paginator.Pagers -}}
+        <li>
+          {{- if eq . $.Paginator -}}
+          <span class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-primary-500 bg-primary-500 text-white font-medium" aria-current="page">
+            {{ .PageNumber }}
+          </span>
+          {{- else -}}
+          <a href="{{ .URL }}" class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300 font-medium">
+            {{ .PageNumber }}
+          </a>
+          {{- end -}}
+        </li>
+        {{- end -}}
+
+        {{- if .Paginator.HasNext -}}
+        <li>
+          <a href="{{ .Paginator.Next.URL }}" class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white transition-all duration-300" aria-label="Next page">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </li>
+        {{- else -}}
+        <li>
+          <span class="flex items-center justify-center w-10 h-10 rounded-xl border-2 border-gray-300 dark:border-gray-600 text-gray-300 dark:text-gray-600 cursor-not-allowed" aria-disabled="true">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </li>
+        {{- end -}}
+      </ul>
+    </nav>
+    <p class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+      Page {{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}
+    </p>
+    {{ end }}
   </div>
 </section>
 {{ end }}
