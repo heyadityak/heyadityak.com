@@ -6,7 +6,7 @@ theme = 'portfolio'
 [params]
   author = "Aditya Krishnakumar"
   description = "Full-stack developer passionate about building great products"
-  # logo = "/images/photo.jpg"  # Optional: Path to your photo/logo (place in static/images/)
+  logo = "/images/aditya_pixelated.png"  # Optional: Path to your photo/logo (place in static/images/)
   github = "https://github.com/heyadityak"
   linkedin = "https://linkedin.com/in/heyadityak"
   twitter = "https://x.com/heyadityak"
