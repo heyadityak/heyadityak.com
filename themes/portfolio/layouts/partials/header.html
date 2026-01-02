@@ -3,6 +3,9 @@
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="{{ "/" | relURL }}" class="flex items-center space-x-2">
+        {{ with .Site.Params.logo }}
+        <img src="{{ . }}" alt="{{ $.Site.Params.author }}" class="w-10 h-10 rounded-full object-cover">
+        {{ end }}
         <span class="text-xl font-bold text-gradient">{{ .Site.Params.author }}</span>
       </a>
       

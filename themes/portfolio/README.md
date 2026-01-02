@@ -146,6 +146,10 @@ theme = 'portfolio'
   author = "Your Name"
   description = "Your professional tagline"
   
+  # Logo/Photo (optional) - displays in header next to your name
+  # Place your image in static/images/ and reference it here
+  # logo = "/images/photo.jpg"
+  
   # Social links
   github = "https://github.com/username"
   linkedin = "https://linkedin.com/in/username"

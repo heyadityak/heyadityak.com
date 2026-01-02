@@ -6,6 +6,7 @@ theme = 'portfolio'
 [params]
   author = "Aditya Krishnakumar"
   description = "Full-stack developer passionate about building great products"
+  # logo = "/images/photo.jpg"  # Optional: Path to your photo/logo (place in static/images/)
   github = "https://github.com/heyadityak"
   linkedin = "https://linkedin.com/in/heyadityak"
   twitter = "https://x.com/heyadityak"
@@ -48,7 +49,7 @@ theme = 'portfolio'
     imgsrc = ["'self'", "data:", "https:"]
     objectsrc = ["'none'"]
     stylesrc = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
-    scriptsrc = ["'self'", "'unsafe-inline'", "https://utteranc.es", "https://cdn.jsdelivr.net"]
+    scriptsrc = ["'self'", "'unsafe-inline'", "https://utteranc.es", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://static.cloudflareinsights.com"]
     connectsrc = ["'self'", "https://www.google-analytics.com"]
     mediasrc = ["'self'"]
     workersrc = ["'self'"]

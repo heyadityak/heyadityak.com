@@ -19,7 +19,23 @@
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-<!-- Favicon - Dynamic SVG based on author initials and theme colors -->
+<!-- Favicon -->
+{{- with .Site.Params.logo -}}
+{{- /* Use logo image as favicon if configured */ -}}
+{{- $logoPath := . -}}
+{{- $logoResource := resources.Get (strings.TrimPrefix "/" $logoPath) -}}
+{{- if $logoResource -}}
+{{- $favicon := $logoResource.Fit "32x32" -}}
+<link rel="icon" type="{{ $favicon.MediaType }}" href="{{ $favicon.RelPermalink }}">
+{{- $favicon64 := $logoResource.Fit "64x64" -}}
+<link rel="icon" type="{{ $favicon64.MediaType }}" sizes="64x64" href="{{ $favicon64.RelPermalink }}">
+{{- $apple := $logoResource.Fit "180x180" -}}
+<link rel="apple-touch-icon" href="{{ $apple.RelPermalink }}">
+{{- else -}}
+<link rel="icon" href="{{ $logoPath }}">
+{{- end -}}
+{{- else -}}
+{{- /* Dynamic SVG favicon based on author initials and theme colors */ -}}
 {{- $author := .Site.Params.author | default "A" -}}
 {{- $words := split $author " " -}}
 {{- $initials := "" -}}
@@ -30,7 +46,6 @@
 {{- if gt (len $initials) 2 -}}
   {{- $initials = substr $initials 0 2 -}}
 {{- end -}}
-{{- /* Color presets for favicon */ -}}
 {{- $colorPresets := dict 
   "blue" (dict "primary" "0ea5e9" "dark" "0284c7")
   "purple" (dict "primary" "a855f7" "dark" "9333ea")
@@ -44,6 +59,7 @@
 {{- $primaryColor := .Site.Params.colors.primary | default (index $presetColors "primary") -}}
 {{- $primaryDark := .Site.Params.colors.primaryDark | default (index $presetColors "dark") -}}
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23{{ $primaryColor }}'/><stop offset='100%25' stop-color='%23{{ $primaryDark }}'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text x='50' y='50' font-family='system-ui,sans-serif' font-size='{{ cond (eq (len $initials) 1) "50" "40" }}' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>{{ $initials }}</text></svg>">
+{{- end -}}
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
