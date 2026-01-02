@@ -1,0 +1,45 @@
+{{- if .Site.Params.csp.enable -}}
+{{- $defaultSrc := .Site.Params.csp.defaultsrc | default (slice "'self'") -}}
+{{- $childSrc := .Site.Params.csp.childsrc | default (slice "'self'") -}}
+{{- $fontSrc := .Site.Params.csp.fontsrc | default (slice "'self'" "https://fonts.gstatic.com" "https://fonts.googleapis.com") -}}
+{{- $formAction := .Site.Params.csp.formaction | default (slice "'self'") -}}
+{{- $frameSrc := .Site.Params.csp.framesrc | default (slice "'self'") -}}
+{{- $imgSrc := .Site.Params.csp.imgsrc | default (slice "'self'" "data:" "https:") -}}
+{{- $objectSrc := .Site.Params.csp.objectsrc | default (slice "'none'") -}}
+{{- $styleSrc := .Site.Params.csp.stylesrc | default (slice "'self'" "'unsafe-inline'" "https://fonts.googleapis.com") -}}
+{{- $scriptSrc := .Site.Params.csp.scriptsrc | default (slice "'self'" "'unsafe-inline'") -}}
+{{- $connectSrc := .Site.Params.csp.connectsrc | default (slice "'self'") -}}
+{{- $mediaSrc := .Site.Params.csp.mediasrc | default (slice "'self'") -}}
+{{- $workerSrc := .Site.Params.csp.workersrc | default (slice "'self'") -}}
+{{- $manifestSrc := .Site.Params.csp.manifestsrc | default (slice "'self'") -}}
+{{- $baseUri := .Site.Params.csp.baseuri | default (slice "'self'") -}}
+{{- $upgradeInsecure := .Site.Params.csp.upgradeInsecureRequests | default true -}}
+{{- $blockMixed := .Site.Params.csp.blockAllMixedContent | default true -}}
+
+{{- $cspContent := "" -}}
+
+{{- if $upgradeInsecure -}}
+  {{- $cspContent = printf "%supgrade-insecure-requests; " $cspContent -}}
+{{- end -}}
+
+{{- if $blockMixed -}}
+  {{- $cspContent = printf "%sblock-all-mixed-content; " $cspContent -}}
+{{- end -}}
+
+{{- $cspContent = printf "%sdefault-src %s; " $cspContent (delimit $defaultSrc " ") -}}
+{{- $cspContent = printf "%schild-src %s; " $cspContent (delimit $childSrc " ") -}}
+{{- $cspContent = printf "%sfont-src %s; " $cspContent (delimit $fontSrc " ") -}}
+{{- $cspContent = printf "%sform-action %s; " $cspContent (delimit $formAction " ") -}}
+{{- $cspContent = printf "%sframe-src %s; " $cspContent (delimit $frameSrc " ") -}}
+{{- $cspContent = printf "%simg-src %s; " $cspContent (delimit $imgSrc " ") -}}
+{{- $cspContent = printf "%sobject-src %s; " $cspContent (delimit $objectSrc " ") -}}
+{{- $cspContent = printf "%sstyle-src %s; " $cspContent (delimit $styleSrc " ") -}}
+{{- $cspContent = printf "%sscript-src %s; " $cspContent (delimit $scriptSrc " ") -}}
+{{- $cspContent = printf "%sconnect-src %s; " $cspContent (delimit $connectSrc " ") -}}
+{{- $cspContent = printf "%smedia-src %s; " $cspContent (delimit $mediaSrc " ") -}}
+{{- $cspContent = printf "%sworker-src %s; " $cspContent (delimit $workerSrc " ") -}}
+{{- $cspContent = printf "%smanifest-src %s; " $cspContent (delimit $manifestSrc " ") -}}
+{{- $cspContent = printf "%sbase-uri %s;" $cspContent (delimit $baseUri " ") -}}
+
+{{ printf `<meta http-equiv="Content-Security-Policy" content="%s">` $cspContent | safeHTML }}
+{{- end -}}
