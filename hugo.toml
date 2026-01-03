@@ -20,7 +20,7 @@ theme = 'portfolio'
   # googleAnalytics = "G-XXXXXXXXXX"
   
   # Google AdSense - Add your publisher ID (e.g., "ca-pub-XXXXXXXXXXXXXXXX")
-  # googleAdsense = "ca-pub-XXXXXXXXXXXXXXXX"
+  googleAdsense = "ca-pub-4956171349713374"
   
   # AdSense Ad Slot IDs (only shown in blog section)
   # adsenseSlotBlogList = "1234567890"        # Ad on blog list page
