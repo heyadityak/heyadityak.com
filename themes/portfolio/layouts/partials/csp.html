@@ -13,6 +13,7 @@
 {{- $workerSrc := .Site.Params.csp.workersrc | default (slice "'self'") -}}
 {{- $manifestSrc := .Site.Params.csp.manifestsrc | default (slice "'self'") -}}
 {{- $baseUri := .Site.Params.csp.baseuri | default (slice "'self'") -}}
+{{- $frameAncestors := .Site.Params.csp.frameancestors | default false -}}
 {{- $upgradeInsecure := .Site.Params.csp.upgradeInsecureRequests | default true -}}
 {{- $blockMixed := .Site.Params.csp.blockAllMixedContent | default true -}}
 
@@ -39,7 +40,10 @@
 {{- $cspContent = printf "%smedia-src %s; " $cspContent (delimit $mediaSrc " ") -}}
 {{- $cspContent = printf "%sworker-src %s; " $cspContent (delimit $workerSrc " ") -}}
 {{- $cspContent = printf "%smanifest-src %s; " $cspContent (delimit $manifestSrc " ") -}}
-{{- $cspContent = printf "%sbase-uri %s;" $cspContent (delimit $baseUri " ") -}}
+{{- $cspContent = printf "%sbase-uri %s; " $cspContent (delimit $baseUri " ") -}}
+{{- if $frameAncestors -}}
+  {{- $cspContent = printf "%sframe-ancestors %s;" $cspContent (delimit $frameAncestors " ") -}}
+{{- end -}}
 
 {{ printf `<meta http-equiv="Content-Security-Policy" content="%s">` $cspContent | safeHTML }}
 {{- end -}}
