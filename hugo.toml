@@ -17,7 +17,7 @@ theme = 'portfolio'
   formspreeId = "mdakkzyv"  # Your Formspree form ID
   
   # Google Analytics (GA4) - Add your measurement ID (e.g., "G-XXXXXXXXXX")
-  # googleAnalytics = "G-XXXXXXXXXX"
+  # googleAnalytics = "G-S0P967L9LR"
   
   # Google AdSense - Add your publisher ID (e.g., "ca-pub-XXXXXXXXXXXXXXXX")
   googleAdsense = "ca-pub-4956171349713374"
