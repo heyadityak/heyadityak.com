@@ -23,9 +23,9 @@ theme = 'portfolio'
   googleAdsense = "ca-pub-4956171349713374"
   
   # AdSense Ad Slot IDs (only shown in blog section)
-  # adsenseSlotBlogList = "1234567890"        # Ad on blog list page
-  # adsenseSlotBlogPost = "1234567891"        # Ad before blog post content
-  # adsenseSlotBlogPostBottom = "1234567892"  # Ad after blog post content
+  adsenseSlotBlogList = "4852396994"        # Ad on blog list page
+  adsenseSlotBlogPost = "6649544453"        # Ad before blog post content
+  adsenseSlotBlogPostBottom = "4023381114"  # Ad after blog post content
   
   # Theme Colors - Customize your site's color scheme
   # Available presets: "blue" (default), "purple", "green", "orange", "rose", "teal"
