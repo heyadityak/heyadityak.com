@@ -35,29 +35,6 @@ theme = 'portfolio'
     # primary = "0ea5e9"               # Custom primary color (hex without #)
     # primaryDark = "0284c7"           # Custom primary dark color for gradients
   
-  # Content Security Policy (CSP)
-  # Enable and configure CSP headers for enhanced security
-  # Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-  [params.csp]
-    enable = true                           # Set to false to disable CSP
-    upgradeInsecureRequests = true          # Upgrade HTTP to HTTPS
-    blockAllMixedContent = true             # Block mixed HTTP/HTTPS content
-    defaultsrc = ["'self'", "https://googleads.g.doubleclick.net"]
-    childsrc = ["'self'"]
-    fontsrc = ["'self'", "https://fonts.gstatic.com", "https://fonts.googleapis.com"]
-    formaction = ["'self'", "https://formspree.io"]
-    framesrc = ["'self'", "https://utteranc.es", "https://www.youtube.com", "https://www.youtube-nocookie.com", "https://player.vimeo.com", "https://googleads.g.doubleclick.net"]
-    imgsrc = ["'self'", "data:", "https:", "https://storage.googleapis.com", "https://pagead2.googlesyndication.com"]
-    objectsrc = ["'self'"]
-    frameancestors = ["'self'"]
-    stylesrc = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"]
-    scriptsrc = ["'self'", "'unsafe-inline'", "https://utteranc.es", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://static.cloudflareinsights.com", "data:", "https://pagead2.googlesyndication.com", "https://storage.googleapis.com", "https://googleads.g.doubleclick.net", "https://ajax.googleapis.com"]
-    connectsrc = ["'self'", "https://www.google-analytics.com", "https://utteranc.es", "https://ep1.adtrafficquality.google"]
-    mediasrc = ["'self'"]
-    workersrc = ["'self'"]
-    manifestsrc = ["'self'"]
-    baseuri = ["'self'"]
-
   # Utterances Comments (https://utteranc.es)
   [params.utterances]
     repo = "heyadityak/heyadityak.com"           # GitHub repo for comments (required)
