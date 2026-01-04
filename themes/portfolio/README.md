@@ -56,7 +56,7 @@ A modern, responsive portfolio theme built with Hugo and Tailwind CSS. Features 
 
 ```bash
 # Add the theme as a submodule
-git submodule add https://github.com/beingadityak/portfolio-theme themes/portfolio
+git submodule add https://github.com/heyadityak/portfolio-theme themes/portfolio
 
 # Initialize and update submodules
 git submodule update --init --recursive
@@ -65,7 +65,7 @@ git submodule update --init --recursive
 ### Option 2: Direct Clone
 
 ```bash
-git clone https://github.com/beingadityak/portfolio-theme themes/portfolio
+git clone https://github.com/heyadityak/portfolio-theme themes/portfolio
 ```
 
 ### Install Dependencies
@@ -596,7 +596,7 @@ A custom 404 page is included with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/beingadityak/portfolio-theme themes/portfolio
+git clone https://github.com/heyadityak/portfolio-theme themes/portfolio
 
 # Install dependencies
 cd themes/portfolio
@@ -743,4 +743,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-Made with ❤️ by [Aditya Krishnakumar](https://github.com/beingadityak)
+Made with ❤️ by [Aditya Krishnakumar](https://github.com/heyadityak)

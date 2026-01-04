@@ -1,6 +1,6 @@
 name = "Portfolio"
 license = "MIT"
-licenselink = "https://github.com/beingadityak/heyadityak.com/blob/main/LICENSE"
+licenselink = "https://github.com/heyadityak/heyadityak.com/blob/main/LICENSE"
 description = "A modern portfolio theme with Tailwind CSS and dark mode support"
 homepage = "https://heyadityak.com"
 tags = ["portfolio", "tailwind", "dark-mode", "responsive"]

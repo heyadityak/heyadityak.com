@@ -35,6 +35,10 @@ theme = 'portfolio'
     # primary = "0ea5e9"               # Custom primary color (hex without #)
     # primaryDark = "0284c7"           # Custom primary dark color for gradients
   
+  # Section Visibility - Enable/disable sections on the website
+  [params.sections]
+    projects = false  # Set to true to enable projects section
+
   # Utterances Comments (https://utteranc.es)
   [params.utterances]
     repo = "heyadityak/heyadityak.com"           # GitHub repo for comments (required)
@@ -52,10 +56,6 @@ theme = 'portfolio'
     name = "About"
     url = "/about/"
     weight = 2
-  [[menu.main]]
-    name = "Projects"
-    url = "/projects/"
-    weight = 3
   [[menu.main]]
     name = "Blog"
     url = "/blog/"
