@@ -1,4 +1,5 @@
 {{- partial "theme-colors.html" . -}}
+{{- partialCached "csp.html" . -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
