@@ -61,9 +61,13 @@ theme = 'portfolio'
     url = "/blog/"
     weight = 4
   [[menu.main]]
+    name = "Contributions"
+    url = "/contributions/"
+    weight = 5
+  [[menu.main]]
     name = "Contact"
     url = "/contact/"
-    weight = 5
+    weight = 6
 
 # Pagination
 [pagination]
