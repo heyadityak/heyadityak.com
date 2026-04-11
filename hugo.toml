@@ -6,7 +6,7 @@ theme = 'portfolio'
 [params]
   author = "Aditya Krishnakumar"
   description = "Site Reliability Engineer driving performance and reliability across cloud platforms"
-  logo = "/images/aditya_pixelated.png"  # Optional: Path to your photo/logo (place in static/images/)
+  logo = "/images/aditya_drawing.jpg"  # Profile image: header, home, about, favicon (static/images/)
   github = "https://github.com/heyadityak"
   linkedin = "https://linkedin.com/in/heyadityak"
   twitter = "https://x.com/heyadityak"
@@ -56,6 +56,10 @@ theme = 'portfolio'
     name = "About"
     url = "/about/"
     weight = 2
+  [[menu.main]]
+    name = "Speaking"
+    url = "/speaker/"
+    weight = 3
   [[menu.main]]
     name = "Blog"
     url = "/blog/"
